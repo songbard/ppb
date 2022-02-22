@@ -1,0 +1,142 @@
+---
+  title: "Associations of Officer-Perceived Mental Health Crisis in Portland Police Bureau Use of Force Dataset"
+  authors: "Jonathan Brown"
+  output: 
+    html_notebook
+---
+
+
+```{r}
+library(tidyverse)
+library(lubridate)
+library(gmodels)
+```
+
+
+**Upload the Dataset**
+
+
+```{r}
+ppbforce_clean_q321
+  
+```
+
+```{r}
+ls(
+  ppbforce_clean_q321
+)
+```
+
+
+```{r}
+CrossTable(ppbforce_clean_q321$force_officer_sum, ppbforce_clean_q321$civil_mental, chisq = TRUE, simulate.p.value = TRUE)
+```
+```{r}
+mytable <- xtabs(~force_officer_sum + civil_mental, data=ppbforce_clean_q321
+                 )
+#NOTE: in xtabs, don't need full $ name of var because data is specified inside the ()
+ftable(mytable) # print table
+summary(mytable) # chi-square test of independence
+```
+```{r}
+#A way to calculate a chisq test without generating an image of the table
+#"simulate.p.value - TRUE" yields a more accurate X2 statistic if some cells are sparse
+chisq.test(ppbforce_clean_q321$civil_mental, ppbforce_clean_q321$force_officer_sum, simulate.p.value = TRUE)
+```
+```{r}
+mytable <- table(ppbforce_clean_q321$civil_mental, ppbforce_clean_q321$force_officer_sum)
+ftable(mytable)   #this command said to allow more attractive printing
+```
+```{r}
+hist(ppbforce_clean_q321$force_officer_sum)
+```
+```{r}
+# Filled Density Plot
+d <- density(ppbforce_clean_q321$force_officer_sum)
+plot(d, main="Kernel Density of Applications of Force per Officer per Interaction")
+polygon(d, col="red", border="blue")
+```
+```{r}
+#t.test(y~x) # where y is numeric and x is a binary factor
+#The following is a test of whether mean # of uses of force by officer differs depending on officer's perception of mental health status
+t.test(ppbforce_clean_q321$force_officer_sum ~ ppbforce_clean_q321$civil_mental)
+```
+
+```{r}
+class_summary <- ppbforce_clean_q321 %>% 
+#  filter(!is.na(ht_in)) %>% 
+  group_by(ppbforce_clean_q321$civil_mental) %>% 
+  summarise(
+    n                    = n(),
+    mean                 = mean(force_officer_sum),
+    `standard deviation` = sd(force_officer_sum),
+    min                  = min(force_officer_sum),
+    max                  = max(force_officer_sum)
+  ) %>% 
+  print()
+
+```
+
+
+
+The below needs varnames and dsname changed
+
+
+
+```{r}
+class_summary <- ppb_force %>% 
+#  filter(!is.na(ht_in)) %>% 
+  group_by(ppb_force$civil_race_raw) %>% 
+  summarise(
+    n                    = n(),
+    mean                 = mean(force_officer_sum),
+    `standard deviation` = sd(force_officer_sum),
+    min                  = min(force_officer_sum),
+    max                  = max(force_officer_sum)
+  ) %>% 
+  print()
+
+```
+```{r}
+class_summary <- ppb_force %>% 
+#  filter(!is.na(ht_in)) %>% 
+  group_by(ppb_force$civil_transient_raw) %>% 
+  summarise(
+    n                    = n(),
+    mean                 = mean(force_officer_sum),
+    `standard deviation` = sd(force_officer_sum),
+    min                  = min(force_officer_sum),
+    max                  = max(force_officer_sum)
+  ) %>% 
+  print()
+
+```
+```{r}
+class_summary <- ppb_force %>% 
+#  filter(!is.na(ht_in)) %>% 
+  group_by(ppb_force$civil_sex_raw) %>% 
+  summarise(
+    n                    = n(),
+    mean                 = mean(force_officer_sum),
+    `standard deviation` = sd(force_officer_sum),
+    min                  = min(force_officer_sum),
+    max                  = max(force_officer_sum)
+  ) %>% 
+  print()
+
+```
+```{r}
+class_summary <- ppb_force %>% 
+#  filter(!is.na(ht_in)) %>% 
+  #if 2 or more vars listed, output is groups by groups, not separate tables
+  group_by(ppb_force$incid_disp_raw) %>% 
+  summarise(
+    n                    = n(),
+    mean                 = mean(force_officer_sum),
+    `standard deviation` = sd(force_officer_sum),
+    min                  = min(force_officer_sum),
+    max                  = max(force_officer_sum)
+  ) %>% 
+  print()
+
+```
