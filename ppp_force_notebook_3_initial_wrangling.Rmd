@@ -1,8 +1,9 @@
 ---
-  title: "PPB Use of Force Data: Upload, Inspection and Recoding"
-  author: "Jonathan Brown"
-  output: 
-    html_notebook
+title: 'PPB Use of Force Data: Upload, Inspection and Recoding'
+author: "Jonathan Brown"
+output:
+  html_document:
+    df_print: paged
 ---
 *NOTE: This document is in RMarkdown "notebook" format.  An RMarkdown notebook is like a laboratory or data scientist's working notebook, but much better: it can include executable code and show or calculate the results of that code's execution.  (Unlike other RMarkdown types, which run all the code in a document while rendering into html (or some other output format), notebook-code can be executed and re-executed chunk by chunk as you write a notebook.  This means, however, that notebooks cannot contain fancy formatting like headers and tables of contents.)  Any reader can completely verify in every detail the work described herein.  Analysts can perform their work ** *within* ** *this document, and their documentation will be automatic as the work is done.  Collaborators can work together on the same notebook.  (Please add your name to the author list in the header if you contribute.)  We use GITHub for version control of this notebook.  Anyone can find this notebook on GitHub.*
 
@@ -859,115 +860,7 @@ ppb_force %>%
 ```
 That worked first time!  Maybe I'm actually learning how to do stuff in R!
 
-Just for fun, let's jump ahead and see how sum of force applications associates with perceived mental status:
-undone undone
-```{r}
-CrossTable(ppb_force$force_officer_sum, ppb_force$civil_mental, chisq = TRUE, simulate.p.value = TRUE)
-```
-```{r}
-mytable <- xtabs(~force_officer_sum + civil_mental, data=ppb_force
-                 )
-#NOTE: in xtabs, don't need full $ name of var because data is specified inside the ()
-ftable(mytable) # print table
-summary(mytable) # chi-square test of independence
-```
-```{r}
-#A way to calculate a chisq test without generating an image of the table
-#"simulate.p.value - TRUE" yields a more accurate X2 statistic if some cells are sparse
-chisq.test(ppb_force$civil_mental, ppb_force$force_officer_sum, simulate.p.value = TRUE)
-```
-```{r}
-mytable <- table(ppb_force$civil_mental, ppb_force$force_officer_sum)
-ftable(mytable)   #this command said to allow more attractive printing
-```
-```{r}
-hist(ppb_force$force_officer_sum)
-```
-```{r}
-# Filled Density Plot
-d <- density(ppb_force$force_officer_sum)
-plot(d, main="Kernel Density of Applications of Force per Officer per Interaction")
-polygon(d, col="red", border="blue")
-```
-```{r}
-#t.test(y~x) # where y is numeric and x is a binary factor
-#The following is a test of whether mean # of uses of force by officer differs depending on officer's perception of mental health status
-t.test(ppb_force$force_officer_sum ~ ppb_force$civil_mental)
-```
-sapply(ppb_force$, mean, na.rm=TRUE)
 
-```{r}
-class_summary <- ppb_force %>% 
-#  filter(!is.na(ht_in)) %>% 
-  group_by(ppb_force$civil_mental) %>% 
-  summarise(
-    n                    = n(),
-    mean                 = mean(force_officer_sum),
-    `standard deviation` = sd(force_officer_sum),
-    min                  = min(force_officer_sum),
-    max                  = max(force_officer_sum)
-  ) %>% 
-  print()
-
-```
-
-```{r}
-class_summary <- ppb_force %>% 
-#  filter(!is.na(ht_in)) %>% 
-  group_by(ppb_force$civil_race_raw) %>% 
-  summarise(
-    n                    = n(),
-    mean                 = mean(force_officer_sum),
-    `standard deviation` = sd(force_officer_sum),
-    min                  = min(force_officer_sum),
-    max                  = max(force_officer_sum)
-  ) %>% 
-  print()
-
-```
-```{r}
-class_summary <- ppb_force %>% 
-#  filter(!is.na(ht_in)) %>% 
-  group_by(ppb_force$civil_transient_raw) %>% 
-  summarise(
-    n                    = n(),
-    mean                 = mean(force_officer_sum),
-    `standard deviation` = sd(force_officer_sum),
-    min                  = min(force_officer_sum),
-    max                  = max(force_officer_sum)
-  ) %>% 
-  print()
-
-```
-```{r}
-class_summary <- ppb_force %>% 
-#  filter(!is.na(ht_in)) %>% 
-  group_by(ppb_force$civil_sex_raw) %>% 
-  summarise(
-    n                    = n(),
-    mean                 = mean(force_officer_sum),
-    `standard deviation` = sd(force_officer_sum),
-    min                  = min(force_officer_sum),
-    max                  = max(force_officer_sum)
-  ) %>% 
-  print()
-
-```
-```{r}
-class_summary <- ppb_force %>% 
-#  filter(!is.na(ht_in)) %>% 
-  #if 2 or more vars listed, output is groups by groups, not separate tables
-  group_by(ppb_force$incid_disp_raw) %>% 
-  summarise(
-    n                    = n(),
-    mean                 = mean(force_officer_sum),
-    `standard deviation` = sd(force_officer_sum),
-    min                  = min(force_officer_sum),
-    max                  = max(force_officer_sum)
-  ) %>% 
-  print()
-
-```
 
 
 
@@ -2000,19 +1893,17 @@ The reordering worked.  (Primarily alphabetical by prefix.)
 ```{r}
 remove(ppb_force)
 
+save(ppbforce_clean_q321, file = "ppbforce_clean_q321.RData")
 
+write.csv(ppbforce_clean_q321, file = "ppbforce_clean_q321.csv")
 ```
 
 
 
 
-**APPENDIX**
+**NOTES**
 
-Useful R instructions:
+When you save this or any RMarkdown notebook, an HTML file containing the code and output will be saved alongside it. (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
-
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
-
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+The preview renders an HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
 
