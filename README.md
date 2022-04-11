@@ -1,5 +1,5 @@
 # ppb
-///DRAFT/// Collaborative Analysis and Reporting of Portland OR USA Police Department Open Data
+Collaborative Analysis and Reporting of Portland OR USA Police Department Open Data
 
 This GitHub repository is a space for open collaboration on the development and analysis of data describing activities of the Portland Police Bureau (PPB).
 
@@ -17,9 +17,8 @@ What software is used for analyses?  We use the powerful free and open-source da
 
 Part of R and RStudio and the Tidyverse are a set of packages that facilitate "Narrative Programming" and easy documentation of all technical work in the form of books, reports, blots, webpages, and interactive research notebooks.  whare a collection of packages and RStudio and, for publication and lab notes, RMarkdown and related programs and packages.
 
-Where does the source data come from?
+Where does the source data come from?  The Portland Police Burean Open Data releases.
 
-Who sponsors the activity?
+Who sponsors the activity?  There is not financial sponsorship, participants are volunteers.  The Portland Mental Health Alliance stimulated and continues to stimulate the work.
 
-What is expected and required of participants?
-Honesty, scientific approach, commitment to open source and transparency, responsible behavior.
+What is expected and required of participants?  Honesty, unbiased scientific approach, commitment to open source and transparency, responsible behavior, shared authorship if academic papers are submitted using data wrangling methods, cleaned datasets, and analytic work posted to the site.  This potentially includes PPB analysts who entered and developed the datasets in the first place.
