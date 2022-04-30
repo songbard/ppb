@@ -1,7 +1,9 @@
 # ppb
-___Collaborative Analysis and Reporting of Portland OR USA Police Department Open Data___
+__Collaborative Analysis and Reporting of Portland OR USA Police Department Open Data__
 
-__Material in this repository is subject to copyright and licensed for free duplication and modification under the most recent version of the Replication Commons Public License, posted at www.replicationcommons.org  In return for free access and the right to create downstream work from the licensed work, the Replication Commons Public License requires users to provide sufficient code and data for their downstream work to be replicated, and to require uses of their work to do the same.  In other words, the License sustains the norms and practices of high-quality public-domain science. __
+___Material in this repository is subject to copyright and licensed for free duplication and modification under the most recent version of the Replication Commons Public License, posted at www.replicationcommons.org.  In return for free access and the right to create downstream work from the licensed work, the Replication Commons Public License requires users to provide sufficient code and data for their downstream work to be replicated, and to require uses of their work to do the same.  In other words, the License sustains the norms and practices of high-quality public-domain science.  Copying or use of material from this repository's consitutes acceptance of this license.___ 
+
+__UPDATE 30 April 2022:  Based on work contained in this repository, Dr. Brown presented testimony to the US District Court for Oregon about changes since 2017 in the rate, burden, and severity of use of force against persons likely to be mentally impaired in Portland, Oregon.  See https://www.courthousenews.com/wp-content/uploads/2022/04/Force-is-Up.pdf.__
 
 This GitHub repository is a space for open collaboration on the development and analysis of data describing activities of the Portland Police Bureau (PPB), and other police departments.
 
